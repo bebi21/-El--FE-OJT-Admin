@@ -21,10 +21,11 @@ const FormEdit = ({ handleClose, data1 }) => {
  
 
   form.setFieldsValue(editData);
+  
   const [api, contextHolder] = notification.useNotification();
 
   const openNotification = (data) => {
-    console.log(2222)
+    
     api.open({
       ...data,
     });
@@ -45,6 +46,7 @@ const FormEdit = ({ handleClose, data1 }) => {
       image: url,
       description: "Chưa có thông tin",
     };
+   
    
     try {
       await publicAxios.put(`/courses/update/${data.id}`, data);

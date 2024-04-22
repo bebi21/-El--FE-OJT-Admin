@@ -130,18 +130,9 @@ import FormEdit from '../components/Form/FormCourseEdit';
       setIsModalOpen(true);
     };
   
-    const handleOk = async () => {
-      /* const data = await publicAxios.put(`/changeStatusUser/${status?.id}`, {
-        active: status?.active,
-      }); */
-      openNotificationWithIcon();
-      setIsModalOpen(false);
-    };
   
-    const handleCancel  = () => {
-    
-      setIsModalOpen(false);
-    };
+  
+
     const handleClose1  = () => {
       setIsModalOpen1(false);
       takeDataInDb();
@@ -200,7 +191,7 @@ import FormEdit from '../components/Form/FormCourseEdit';
         >
           <FormDisabledDemo handleClose1={handleClose1} />
         </Modal>
-        <div className=" rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className=" h-[80vh] rounded-sm border border-stroke bg-white px-5 pt-4 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
           <div className="flex justify-between items-center">
             {' '}
             <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
@@ -216,7 +207,7 @@ import FormEdit from '../components/Form/FormCourseEdit';
               </button>
             </div>
           </div>
-          <div className="flex flex-col h-[68vh] relative ">
+          <div className="flex flex-col max-h-[80vh] relative ">
             <div className="py-[10px] grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
               <div className="p-1 text-center">
                 <h5 className="text-sm font-medium uppercase xsm:text-base">
@@ -299,7 +290,9 @@ import FormEdit from '../components/Form/FormCourseEdit';
                   </div>
                 </div>
               ))}
-            <div className="absolute flex justify-center left-[35%] bottom-[20px]">
+            
+          </div>
+          <div className="absolute flex justify-center left-[40%] bottom-[20px]">
               <Pagination
                 current={currentPage}
                 onChange={handlePageChange}
@@ -307,7 +300,6 @@ import FormEdit from '../components/Form/FormCourseEdit';
                 total={brandData.length}
               />
             </div>
-          </div>
         </div>
       </>
     );
