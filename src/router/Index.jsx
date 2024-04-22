@@ -35,7 +35,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/test/:id",
-      
         element: <Test1 />,
       },
     ],

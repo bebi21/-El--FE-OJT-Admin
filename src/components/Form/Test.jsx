@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Collapse, Form, Input, Modal, Popconfirm } from "antd";
+import { Button, Collapse, Divider, Form, Input, Modal, Popconfirm, notification } from "antd";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import CKEditorComponent from "../CkEditor/CKeditor";
@@ -7,153 +7,6 @@ import { useParams } from "react-router-dom";
 import publicAxios from "../../database/publicAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { newVideo } from "../Redux/counterVideo/counterVideo";
-/* 
-const data = [
-  {
-    id: 1,
-    title: "1.Bắt đầu",
-    lessons: [
-      {
-        id: 1,
-        title: "Bài 1",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 2,
-        title: "Bài 2",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 3,
-        title: "Bài 3",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "2. Làm Quen  với HTML",
-    lessons: [
-      {
-        id: 4,
-        title: "Bài 1",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 5,
-        title: "Bài 2",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 6,
-        title: "Bài 3",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "3. Thẻ Tiêu Để",
-    lessons: [
-      {
-        id: 1,
-        title: "Bài 1",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 2,
-        title: "Bài 2",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 3,
-        title: "Bài 3",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "4.Thẻ Đoạn Văn",
-    lessons: [
-      {
-        id: 4,
-        title: "Bài 1",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 5,
-        title: "Bài 2",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 6,
-        title: "Bài 3",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: "5.Chữ đậm  chữ nghiêng",
-    lessons: [
-      {
-        id: 1,
-        title: "Bài 1",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 2,
-        title: "Bài 2",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 3,
-        title: "Bài 3",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-    ],
-  },
-  {
-    id: 6,
-    title: "6.  Thẻ Blog và Inline.",
-    lessons: [
-      {
-        id: 4,
-        title: "Bài 1",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 5,
-        title: "Bài 2",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-      {
-        id: 6,
-        title: "Bài 3",
-        description: "ádasdasdasdasdas",
-        video: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-      },
-    ],
-  },
-]; */
 
 const TestColap = ({check , handleVideo}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -164,6 +17,8 @@ const TestColap = ({check , handleVideo}) => {
   const [oldValue,setOldValue] = useState("")
   const [valueCkeditor,setValueCkeditor] = useState('')
   const dispatch = useDispatch()
+  const [api, contextHolder] = notification.useNotification();
+
 
 
   const takeDataInDb  = async () => {
@@ -200,6 +55,8 @@ const TestColap = ({check , handleVideo}) => {
     form.resetFields();
     setOldValue("")
     setIsModalOpen(false);
+    takeDataInDb()
+    openNotificationWithIcon("Thay đổi  thành công")
    } catch (error) {
     console.log(error)
     
@@ -239,19 +96,60 @@ const TestColap = ({check , handleVideo}) => {
       setIsModalOpen1(false);
       setRemoveItem("")
       takeDataInDb()
-      
+      openNotificationWithIcon("Xóa  thành công")
     } catch (error) {
       console.log(error)
       
     }
   };
 
+ 
+
   const handleCancel1 = () => {
     setRemoveItem("")
     setIsModalOpen1(false);
   };
+
+  const handleEditChapter = (item) => {
+   
+    form.setFieldsValue(item)
+    setIsModalOpen2(true)
+  }
+  
+  const onFinish1 = async (values) => {
+    const newData = {
+      ...values,
+      id: +values.id,
+    }
+   
+   try {
+    await publicAxios.put(`/chapter/update/${newData.id}`, newData);
+    form.resetFields();
+    openNotificationWithIcon("Thay đổi  thành công")
+    setIsModalOpen2(false);
+    takeDataInDb()
+   
+
+   } catch (error) {
+    console.log(error)
+    
+   }
+  }; 
+  const onFinishFailed1 = (value)=>{
+    console.log(value)
+  }
+
+  const openNotificationWithIcon = (text) => {
+    api.success({
+      message: "Thành Công",
+      description: text,
+      duration: 1,
+    });
+  };
+
   return (
     <>
+    {contextHolder}
       <Modal
         title="Sửa khóa học"
         okType="default"
@@ -346,9 +244,10 @@ const TestColap = ({check , handleVideo}) => {
             wrapperCol={{ span: 16 }}
             style={{ maxWidth: 600 }}
             initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+            onFinish={onFinish1}
+            onFinishFailed={onFinishFailed1}
             autoComplete="off"
+            form={form}
           >
             <Form.Item hidden label="id" name="id">
               <Input />
@@ -371,7 +270,7 @@ const TestColap = ({check , handleVideo}) => {
               <Input />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="default" htmlType="submit">
+              <Button type="default" htmlType="submit" >
                 Submit
               </Button>
               <Button
@@ -395,30 +294,32 @@ const TestColap = ({check , handleVideo}) => {
                   <h2 className="overflow-hidden max-w-[80%]">{item.title}</h2>
                   <MdEdit style={{ cursor: "pointer",width:"20px",height:"20px"}} onClick={(e) => {
                        e.stopPropagation()
-                    setIsModalOpen2(item)}} />
+                    handleEditChapter(item)}} />
                 </div>
               </>
             }
             key={index}
           >
             {item.lessons.map((item1, index) => (
-              <div
-                key={index}
-                className="flex justify-between hover:bg-slate-300 "
-               onClick={() => {
-                handleVideo(item1.video);
-               }}
-              >
-                <h2>{item1.title}</h2>
-                <div className="flex justify-center items-center gap-2">
-                  <MdEdit onClick={(e) => {
-                     e.stopPropagation();
-                    showModal(item1)}} />
-                  <MdDelete  onClick={(e) => {
-                     e.stopPropagation();
-                    showModal1(item1)}}/>
-                </div>
-              </div>
+            <>  <div
+            key={index}
+            className="flex justify-between hover:bg-slate-300 cursoir-pointer"
+           onClick={() => {
+            handleVideo(item1.video);
+           }}
+          >
+            <h2>{item1.title}</h2>
+            <div className="flex justify-center items-center gap-2">
+              <MdEdit onClick={(e) => {
+                 e.stopPropagation();
+                showModal(item1)}} />
+              <MdDelete  onClick={(e) => {
+                 e.stopPropagation();
+                showModal1(item1)}}/>
+            </div>
+          </div>
+          <Divider />
+          </>
             ))}
           </Collapse.Panel>
         ))}

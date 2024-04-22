@@ -9,105 +9,13 @@ import TestColap from "../components/Form/Test";
 import FormAddChapter from "../components/Form/FormAddChapter";
 import FormAddLesson from "../components/Form/FormAddLession";
 import { useDispatch, useSelector } from "react-redux";
-import ReactPlayer from 'react-player'
-
-/* fake data */
-/*  cần lấy join  bảng  khóa học  và thấy giáo  để lấy thôi tin tên của Thầy ,đổi  tên trường ảnh */
-/*  const brandData = [
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-  
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-  ]; */
-const opts = {
-  height: "500",
-  width: "100%",
-};
+import ReactPlayer from "react-player";
 
 const Lession = () => {
   const { id } = useParams();
-  const [videoLink, setVideoLink] = useState(
-    "https://www.youtube.com/watch?v=h6RONxjPBf4&list=RD1qFzxH3R9rQ&index=2"
-  );
+  const [videoLink, setVideoLink] = useState("");
 
-  const handleVideo = (link) => {
-    setVideoLink(link);
-  };
-  
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -115,20 +23,14 @@ const Lession = () => {
   const [check, setCheck] = useState(true);
   const [api, contextHolder] = notification.useNotification();
 
-  const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const onPlayVideo = () => {
-    videoRef.current?.internalPlayer.playVideo();
-    setIsPlaying(true);
-  };
-  const openNotificationWithIcon = () => {
+  const openNotificationWithIcon = (text) => {
     api.success({
       message: "Thành Công",
-      description: "Thay đổi trạng thái thành công",
+      description: text,
       duration: 1,
     });
   };
+
   /* call api  */
   const [brandData, setBrandData] = useState([]);
 
@@ -136,8 +38,7 @@ const Lession = () => {
     const data = await publicAxios.get(`/courses/findCourseById/${id}`);
     const newData = data.data.chapters;
     setBrandData(newData);
-    /*   console.log(data.data.chapters) */
-    /* setBrandData(data.data) */
+    setVideoLink(newData[0].lessons[0].video);
   };
   useEffect(() => {
     takeDataInDb();
@@ -145,9 +46,13 @@ const Lession = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const handleVideo = (link) => {
+    setVideoLink(link);
+  };
 
   const handleOk = async () => {
-    openNotificationWithIcon();
+    const text = "Thay đổi trạng thái thành công";
+    openNotificationWithIcon(text);
     setIsModalOpen(false);
   };
 
@@ -228,12 +133,12 @@ const Lession = () => {
         </div>
 
         <Divider style={{ border: "0.1px solid #d9d9d9" }} />
-        <div className="grid grid-cols-4 gap-4 h-[70vh] overflow-auto relative ">
-          <div className="col-span-3">
+        <div className="grid grid-cols-6 gap-4 h-[70vh] overflow-auto relative ">
+          <div className="col-span-4">
             {" "}
-            <ReactPlayer url={videoLink} />
+            <ReactPlayer url={videoLink} width="100%"  />
           </div>
-          <div className="col-span-1 overflow-scroll">
+          <div className="col-span-2 overflow-scroll">
             {/*  <DrawerCourse /> */}
             <TestColap check={check} handleVideo={handleVideo} />
           </div>
@@ -244,3 +149,4 @@ const Lession = () => {
 };
 
 export default Lession;
+  
