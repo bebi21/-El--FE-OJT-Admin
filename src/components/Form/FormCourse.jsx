@@ -1,15 +1,13 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Button, Form, Input, Radio, Select, notification } from 'antd';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import publicAxios from '../../database/publicAxios';
-import { storage } from '../../database/firebase';
+import React, { useEffect, useState } from "react";
+import { Button, Form, Input, Radio, Select, notification } from "antd";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../database/firebase";
 
 const { TextArea } = Input;
 
-
-const FormDisabledDemo  = ({ handleClose1 }) => {
+const FormDisabledDemo = ({ handleClose1 }) => {
   const [api, contextHolder] = notification.useNotification();
-  
+
   const openNotification = (data) => {
     api.open({
       ...data,
@@ -17,13 +15,12 @@ const FormDisabledDemo  = ({ handleClose1 }) => {
   };
 
   const [form] = Form.useForm();
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const onFinish = async (values) => {
-    
     if (!url) {
       openNotification({
-        type: 'error',
-        message: 'Hãy Thêm Ảnh Vào',
+        type: "error",
+        message: "Hãy Thêm Ảnh Vào",
       });
       return;
     }
@@ -31,28 +28,25 @@ const FormDisabledDemo  = ({ handleClose1 }) => {
       ...values,
       teacher_id: +values.teacher_id,
       image: url,
-      description: 'Chưa có thông tin',
+      description: "Chưa có thông tin",
     };
-  try {
-    await publicAxios.post('/courses/create', data);
-    openNotification({
-      type: 'success',
-      message: 'Thêm Khóa Học  Thành Công',
-    });
-    form.resetFields();
-    handleClose1()
-    setUrl("")
-   
-    
-  } catch (error) {
-    alert(error.message)
-    console.log(error)
-  }
-   
+    try {
+      await handleCreateCourseApi(data);
+      openNotification({
+        type: "success",
+        message: "Thêm Khóa Học  Thành Công",
+      });
+      form.resetFields();
+      handleClose1();
+      setUrl("");
+    } catch (error) {
+      alert(error.message);
+      console.log(error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   const handleChange = async (e) => {
@@ -64,32 +58,30 @@ const FormDisabledDemo  = ({ handleClose1 }) => {
         const imageRef = await uploadBytes(storageRef, image);
         const downloadUrl = await getDownloadURL(imageRef.ref);
         setUrl(downloadUrl);
-        console.log('Image Uploaded and URL:', downloadUrl);
+        console.log("Image Uploaded and URL:", downloadUrl);
       } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error("Error uploading file:", error);
       }
     }
   };
   const [teacher, setTeacher] = useState([]);
   const handleTakeTeacher = async () => {
-    const listTeacher = await publicAxios.get('/teacher/list');
-
+    const listTeacher = await handleGetAllTeacherApi();
     setTeacher(listTeacher.data);
   };
   useEffect(() => {
     handleTakeTeacher();
   }, []);
 
-
   const handleCancle = () => {
     form.resetFields();
-    handleClose1()
+    handleClose1();
   };
-   return (
+  return (
     <>
       {contextHolder}
       <Form
-          onFinishFailed={onFinishFailed}
+        onFinishFailed={onFinishFailed}
         onFinish={onFinish}
         form={form}
         labelCol={{ span: 6 }}
@@ -100,14 +92,14 @@ const FormDisabledDemo  = ({ handleClose1 }) => {
         <Form.Item
           label="Tên  Khóa Học"
           name="title"
-          rules={[{ required: true, message: 'Please input!' }]}
+          rules={[{ required: true, message: "Please input!" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Tên Thầy Giáo"
           name="teacher_id"
-          rules={[{ required: true, message: 'Please input!' }]}
+          rules={[{ required: true, message: "Please input!" }]}
         >
           <Select>
             {teacher.map((item, index) => (
@@ -148,7 +140,7 @@ const FormDisabledDemo  = ({ handleClose1 }) => {
         <Form.Item
           label="Giới Thiệu"
           name="sub_description"
-          rules={[{ required: true, message: 'Please input!' }]}
+          rules={[{ required: true, message: "Please input!" }]}
         >
           <TextArea rows={4} />
         </Form.Item>
