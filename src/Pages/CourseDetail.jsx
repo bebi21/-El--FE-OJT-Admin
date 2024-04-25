@@ -15,8 +15,6 @@ const Lession = () => {
   const { id } = useParams();
   const [videoLink, setVideoLink] = useState("");
 
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
 
@@ -35,7 +33,7 @@ const Lession = () => {
   const [brandData, setBrandData] = useState([]);
 
   const takeDataInDb = async () => {
-    const data = await publicAxios.get(`/courses/findCourseById/${id}`);
+    const data = await handleFindCourseByIdApi(id);
     const newData = data.data.chapters;
     setBrandData(newData);
     setVideoLink(newData[0].lessons[0].video);
@@ -136,7 +134,7 @@ const Lession = () => {
         <div className="grid grid-cols-6 gap-4 h-[70vh] overflow-auto relative ">
           <div className="col-span-4">
             {" "}
-            <ReactPlayer url={videoLink} width="100%"  />
+            <ReactPlayer url={videoLink} width="100%" />
           </div>
           <div className="col-span-2 overflow-scroll">
             {/*  <DrawerCourse /> */}
@@ -149,4 +147,3 @@ const Lession = () => {
 };
 
 export default Lession;
-  
