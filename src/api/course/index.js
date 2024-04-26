@@ -11,7 +11,7 @@ export const getALlCourseApi = async () => {
     const response = await publicAxios.get(API_GET_ALL_COURSE);
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
     return error;
   }
 };
@@ -21,7 +21,7 @@ export const handleSearchCourseApi = async (dataValue) => {
     const response = await publicAxios.get(API_SEARCH_COURSE + `${dataValue}`);
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
     return error;
   }
 };
@@ -34,7 +34,7 @@ export const handlePaginationRenderOneApi = async (firstPage, limit) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -45,7 +45,7 @@ export const handlePaginationApi = async (page, limit) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 export const handleFindCourseByIdApi = async (id) => {
@@ -53,7 +53,7 @@ export const handleFindCourseByIdApi = async (id) => {
     const response = await publicAxios.get(API_COURSES_BY_ID + `${id}`);
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 export const handleUpdateCourseByIdApi = async (id, data) => {
@@ -64,7 +64,7 @@ export const handleUpdateCourseByIdApi = async (id, data) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 export const handleGetAllTeacherApi = async () => {
@@ -72,7 +72,7 @@ export const handleGetAllTeacherApi = async () => {
     const response = await publicAxios.get(API_GET_ALl_TEACHER);
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -81,6 +81,6 @@ export const handleCreateCourseApi = async (data) => {
     const response = await publicAxios.post(API_COURSES_BY_ID_CREATE, data);
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };

@@ -14,7 +14,6 @@ const FormEdit = ({ handleClose, data1 }) => {
   const editData = { ...data1, teacher_id: data1.teacher_id.id };
   form.setFieldsValue(editData);
   const [api, contextHolder] = notification.useNotification();
-
   const openNotification = (data) => {
     api.open({
       ...data,
@@ -47,12 +46,12 @@ const FormEdit = ({ handleClose, data1 }) => {
       setUrl("");
     } catch (error) {
       alert(error.message);
-      console.log(error);
+      return error;
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    return errorInfo;
   };
 
   const handleChange = async (e) => {
@@ -65,7 +64,7 @@ const FormEdit = ({ handleClose, data1 }) => {
         const downloadUrl = await getDownloadURL(imageRef.ref);
         setUrl(downloadUrl);
       } catch (error) {
-        console.log("Error uploading file:", error);
+        return error;
       }
     }
   };
