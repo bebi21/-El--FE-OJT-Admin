@@ -3,34 +3,33 @@ import { Button, Checkbox, Form, Input, Select } from "antd";
 import publicAxios from "../../database/publicAxios";
 import { useParams } from "react-router-dom";
 
-const FormAddLesson = ({handleCloseLesson}) => {
-  const {id} = useParams()
-  const [brandData,setBrandData] = useState([])
+const FormAddLesson = ({ handleCloseLesson }) => {
+  const { id } = useParams();
+  const [brandData, setBrandData] = useState([]);
 
-  const takeDataInDb  = async () => {
+  const takeDataInDb = async () => {
     const data = await publicAxios.get(`/courses/findCourseByIdAdmin/${id}`);
-   const newData = data.data.chapters
-     setBrandData(newData)
-  }
+    const newData = data.data.chapters;
+    setBrandData(newData);
+  };
   useEffect(() => {
-    takeDataInDb()
-  }, [])
-  
+    takeDataInDb();
+  }, []);
+
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-   const newData = {
-    ...values,
-   chapter_id: +values.chapter_id[0],
-   };
-   try { 
-   await publicAxios.post(`/lesson/create`, newData);
-   form.resetFields();
-   handleCloseLesson()
-   } catch (error) {
-    console.log(error)
-    
-   }
+    const newData = {
+      ...values,
+      chapter_id: +values.chapter_id[0],
+    };
+    try {
+      await publicAxios.post(`/lesson/create`, newData);
+      form.resetFields();
+      handleCloseLesson();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -70,7 +69,6 @@ const FormAddLesson = ({handleCloseLesson}) => {
               </Select.Option>
             );
           })}
-         
         </Select>
       </Form.Item>
 

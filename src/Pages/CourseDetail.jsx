@@ -1,26 +1,18 @@
 import { Divider, Modal, notification } from "antd";
 import { useEffect, useRef, useState } from "react";
-import publicAxios from "../database/publicAxios";
 import { CiCirclePlus } from "react-icons/ci";
-
-import { NavLink, useParams } from "react-router-dom";
-import YouTube from "react-youtube";
+import { useParams } from "react-router-dom";
 import TestColap from "../components/Form/Test";
 import FormAddChapter from "../components/Form/FormAddChapter";
 import FormAddLesson from "../components/Form/FormAddLession";
-import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from "react-player";
-
 const Lession = () => {
   const { id } = useParams();
   const [videoLink, setVideoLink] = useState("");
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
-
   const [check, setCheck] = useState(true);
   const [api, contextHolder] = notification.useNotification();
-
   const openNotificationWithIcon = (text) => {
     api.success({
       message: "Thành Công",
@@ -28,10 +20,8 @@ const Lession = () => {
       duration: 1,
     });
   };
-
   /* call api  */
   const [brandData, setBrandData] = useState([]);
-
   const takeDataInDb = async () => {
     const data = await handleFindCourseByIdApi(id);
     const newData = data.data.chapters;
@@ -47,7 +37,6 @@ const Lession = () => {
   const handleVideo = (link) => {
     setVideoLink(link);
   };
-
   const handleOk = async () => {
     const text = "Thay đổi trạng thái thành công";
     openNotificationWithIcon(text);

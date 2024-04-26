@@ -7,15 +7,15 @@ const { TextArea } = Input;
 
 const FormDisabledDemo = ({ handleClose1 }) => {
   const [api, contextHolder] = notification.useNotification();
-
+  const [form] = Form.useForm();
+  const [url, setUrl] = useState("");
   const openNotification = (data) => {
     api.open({
       ...data,
     });
   };
+  const [teacher, setTeacher] = useState([]);
 
-  const [form] = Form.useForm();
-  const [url, setUrl] = useState("");
   const onFinish = async (values) => {
     if (!url) {
       openNotification({
@@ -58,13 +58,11 @@ const FormDisabledDemo = ({ handleClose1 }) => {
         const imageRef = await uploadBytes(storageRef, image);
         const downloadUrl = await getDownloadURL(imageRef.ref);
         setUrl(downloadUrl);
-        console.log("Image Uploaded and URL:", downloadUrl);
       } catch (error) {
         console.error("Error uploading file:", error);
       }
     }
   };
-  const [teacher, setTeacher] = useState([]);
   const handleTakeTeacher = async () => {
     const listTeacher = await handleGetAllTeacherApi();
     setTeacher(listTeacher.data);
