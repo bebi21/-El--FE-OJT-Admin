@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 const FormAddLesson = ({ handleCloseLesson }) => {
   const { id } = useParams();
   const [brandData, setBrandData] = useState([]);
-
+  const [form] = Form.useForm();
   const takeDataInDb = async () => {
     const data = await publicAxios.get(`/courses/findCourseByIdAdmin/${id}`);
     const newData = data.data.chapters;
@@ -15,9 +15,6 @@ const FormAddLesson = ({ handleCloseLesson }) => {
   useEffect(() => {
     takeDataInDb();
   }, []);
-
-  const [form] = Form.useForm();
-
   const onFinish = async (values) => {
     const newData = {
       ...values,
@@ -28,17 +25,12 @@ const FormAddLesson = ({ handleCloseLesson }) => {
       form.resetFields();
       handleCloseLesson();
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
-
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    return errorInfo;
   };
-  const handleGetValue = (value) => {
-    console.log("value", value);
-  };
-
   return (
     <Form
       name="basic"

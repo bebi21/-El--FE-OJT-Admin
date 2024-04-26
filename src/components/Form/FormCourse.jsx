@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Radio, Select, notification } from "antd";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../database/firebase";
-
 const { TextArea } = Input;
-
 const FormDisabledDemo = ({ handleClose1 }) => {
   const [api, contextHolder] = notification.useNotification();
   const [form] = Form.useForm();
@@ -40,13 +38,12 @@ const FormDisabledDemo = ({ handleClose1 }) => {
       handleClose1();
       setUrl("");
     } catch (error) {
-      alert(error.message);
-      console.log(error);
+      return error;
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    return errorInfo;
   };
 
   const handleChange = async (e) => {
@@ -59,7 +56,7 @@ const FormDisabledDemo = ({ handleClose1 }) => {
         const downloadUrl = await getDownloadURL(imageRef.ref);
         setUrl(downloadUrl);
       } catch (error) {
-        console.error("Error uploading file:", error);
+        return error;
       }
     }
   };
