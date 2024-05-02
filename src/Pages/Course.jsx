@@ -6,91 +6,6 @@ import { NavLink } from "react-router-dom";
 import publicAxios from "../database/publicAxios";
 import FormEdit from "../components/Form/FormCourseEdit";
 
-/* fake data */
-/*  cần lấy join  bảng  khóa học  và thấy giáo  để lấy thôi tin tên của Thầy ,đổi  tên trường ảnh */ /* 
-  const brandData: any[] = [
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-   
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-    {
-      id: 1,
-      title: 'Học Java',
-      image:
-        'https://topviecit.vn/blog/wp-content/uploads/2021/11/javascript-2.jpeg',
-      name: 'Nguyen Duy Quang',
-      image_teacher:
-        'https://rikkei.edu.vn/wp-content/uploads/2024/01/aquang-1.jpg',
-      create_date: '2022-07-01',
-      sub_description: 'sadasdasdasdasda',
-    },
-   
-   
-  ]; */
-
 const TableCourse = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -112,7 +27,7 @@ const TableCourse = () => {
   const takeDataInDb = async () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const data = await publicAxios.get("/courses/list");
+    const data = await getALlCourseApi();
     setBrandData(data.data);
     setCurrentBrandData(data.data.slice(indexOfFirstItem, indexOfLastItem));
   };
@@ -124,17 +39,6 @@ const TableCourse = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async () => {
-    /* const data = await publicAxios.put(`/changeStatusUser/${status?.id}`, {
-        active: status?.active,
-      }); */
-    openNotificationWithIcon();
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   const handleClose1 = () => {
     setIsModalOpen1(false);
     takeDataInDb();
@@ -144,9 +48,6 @@ const TableCourse = () => {
     takeDataInDb();
   };
 
-  const onChange = (e) => {
-    setStatus({ ...status, active: e.target.value });
-  };
   /* phân trang */
   // số lượng items mỗi trang
   // Tạo một state mới để lưu trữ dữ liệu hiển thị trên trang hiện tại
@@ -229,9 +130,10 @@ const TableCourse = () => {
             </div>
             <div className="hidden p-1 text-center sm:block">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
+                {" "}
                 Chức năng
               </h5>
-            </div>
+            </div>{" "}
             <div className="hidden p-1 text-center sm:block">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 Nội Dung

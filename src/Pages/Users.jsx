@@ -117,7 +117,6 @@ const TableUser = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
   return (
     <>
       {contextHolder}
