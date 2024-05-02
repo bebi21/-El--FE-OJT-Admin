@@ -25,7 +25,7 @@ export const handleSearchCourseApi = async (dataValue) => {
     return error;
   }
 };
-S;
+
 
 export const handlePaginationRenderOneApi = async (firstPage, limit) => {
   try {
