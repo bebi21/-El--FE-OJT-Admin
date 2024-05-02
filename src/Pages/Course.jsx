@@ -5,9 +5,6 @@ import FormDisabledDemo from "../components/Form/FormCourse";
 import { NavLink } from "react-router-dom";
 import publicAxios from "../database/publicAxios";
 import FormEdit from "../components/Form/FormCourseEdit";
-
-
-
 const TableCourse = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -29,9 +26,7 @@ const TableCourse = () => {
   const takeDataInDb = async () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
     const data = await getALlCourseApi();
-
     setBrandData(data.data);
     setCurrentBrandData(data.data.slice(indexOfFirstItem, indexOfLastItem));
   };
@@ -42,8 +37,6 @@ const TableCourse = () => {
     setItemEdit(item);
     setIsModalOpen(true);
   };
-
-
   const handleClose1 = () => {
     setIsModalOpen1(false);
     takeDataInDb();
@@ -52,13 +45,10 @@ const TableCourse = () => {
     setIsModalOpen(false);
     takeDataInDb();
   };
-
-
   /* phân trang */
   // số lượng items mỗi trang
   // Tạo một state mới để lưu trữ dữ liệu hiển thị trên trang hiện tại
   const [currentBrandData, setCurrentBrandData] = useState([]);
-
   // Hàm này sẽ được gọi mỗi khi trang thay đổi
   useEffect(() => {
     const indexOfLastItem = currentPage * itemsPerPage;
