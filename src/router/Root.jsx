@@ -19,8 +19,10 @@ function Root() {
 
             {/* <!-- ===== Main Content Start ===== --> */}
             <main>
-              <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-8">
-                <div className="mt-2 grid grid-cols-12 gap-4 md:mt-3 md:gap-4 2xl:mt-0 2xl:gap-7.5">
+
+              <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                <div className="mt-2 grid grid-cols-12 gap-4 md:mt-3 md:gap-6 2xl:mt-4 2xl:gap-7.5">
+
                   <div className="col-span-12 xl:col-span-12">{<Outlet />}</div>
                 </div>
               </div>
