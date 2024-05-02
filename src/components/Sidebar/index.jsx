@@ -1,16 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import Logo from '../../images/logo/logorikkei.png';
-import { FaRegUser } from 'react-icons/fa6';
+import { useEffect, useRef, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import Logo from "../../images/logo/logorikkei.png";
+import { FaRegUser } from "react-icons/fa6";
 import { RiFileList3Line } from "react-icons/ri";
 import { FaBlogger } from "react-icons/fa";
 
-
 const Sidebar = () => {
- 
   return (
     <aside
-      
       className={`absolute left-0 top-0 z-9999 flex h-screen
        w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear
         dark:bg-boxdark lg:static lg:translate-x-0 `}
@@ -21,12 +18,7 @@ const Sidebar = () => {
           <img src={Logo} alt="Logo" />
         </NavLink>
 
-        <button
-
-          aria-controls="sidebar"
-         
-          className="block lg:hidden"
-        >
+        <button aria-controls="sidebar" className="block lg:hidden">
           <svg
             className="fill-current"
             width="20"
@@ -55,7 +47,7 @@ const Sidebar = () => {
 
             <ul className="mb-6 flex flex-col gap-1.5">
               {/* <!-- Menu Item Calendar --> */}
-              <li>
+              {/* <li>
                 <NavLink
                   to="/"
                   className={`group relative flex items-center 
@@ -63,9 +55,9 @@ const Sidebar = () => {
                    duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
                 >
                   <FaRegUser />
-                 Home Page
+                  Home Page
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to="/"
@@ -80,11 +72,11 @@ const Sidebar = () => {
                   to="/course"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
                 >
-                 <RiFileList3Line />
-                Khóa học
+                  <RiFileList3Line />
+                  Khóa học
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
@@ -92,14 +84,14 @@ const Sidebar = () => {
                 <FaBlogger />
                  Blog
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>
     </aside>
-  );  
+  );
 };
 
 export default Sidebar;

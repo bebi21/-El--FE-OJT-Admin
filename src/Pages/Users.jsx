@@ -1,65 +1,65 @@
 import { Modal, Pagination, Radio, notification } from "antd";
 import { useEffect, useState } from "react";
+import publicAxios from "../database/publicAxios";
 
-/* fake data */
-const brandData = [
-  {
-    id: 1,
-    fullname: "loc",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: 1,
-  },
-  {
-    id: 2,
-    fullname: "loc",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: null,
-  },
-  {
-    id: 1,
-    fullname: "loc",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: 1,
-  },
-  {
-    id: 2,
-    fullname: "loc",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: null,
-  },
-  {
-    id: 1,
-    fullname: "loc1",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: null,
-  },
-  {
-    id: 2,
-    fullname: "loc2",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: 1,
-  },
-  {
-    id: 1,
-    fullname: "lo3c",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: 1,
-  },
-  {
-    id: 2,
-    fullname: "lo4c",
-    phone: "0123456789",
-    create_date: "2022-07-01",
-    active: 1,
-  },
-];
+
+//   {
+//     id: 1,
+//     fullname: "loc",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: 1,
+//   },
+//   {
+//     id: 2,
+//     fullname: "loc",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: null,
+//   },
+//   {
+//     id: 1,
+//     fullname: "loc",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: 1,
+//   },
+//   {
+//     id: 2,
+//     fullname: "loc",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: null,
+//   },
+//   {
+//     id: 1,
+//     fullname: "loc1",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: null,
+//   },
+//   {
+//     id: 2,
+//     fullname: "loc2",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: 1,
+//   },
+//   {
+//     id: 1,
+//     fullname: "lo3c",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: 1,
+//   },
+//   {
+//     id: 2,
+//     fullname: "lo4c",
+//     phone: "0123456789",
+//     create_date: "2022-07-01",
+//     active: 1,
+//   },
+// ];
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState();
@@ -74,35 +74,40 @@ const TableUser = () => {
     });
   };
   /* call api  */
-  /*  const [brandData,setBrandData] = useState([])
-   */
-  /* const takeDataInDb  = async () => {
-    const data = await publicAxios.get("/takeAllUser")
-    setBrandData(data.data)
-  }
+  const [brandData, setBrandData] = useState([]);
+
+  const takeDataInDb = async () => {
+    const response = await publicAxios.get("/users/getAllUser");
+    setBrandData(response.data);
+  };
   useEffect(() => {
-    takeDataInDb()
-  }, []) */
-  const showModal = () => {
+    takeDataInDb();
+  }, []);
+
+  const showModal = (item) => {
     setStatus(item);
     setIsModalOpen(true);
   };
 
   const handleOk = async () => {
-    /*   const data = await publicAxios.put(`/changeStatusUser/${status?.id}`, {
-      active: status?.active,
-    }); */
+    const data = {
+      is_active: status?.change_active,
+      id: status?.id,
+    };
+    const response = await publicAxios.put("/users/updateStatus/", data);
+    takeDataInDb();
     openNotificationWithIcon();
     setIsModalOpen(false);
-  };
+  }
 
   const handleCancel = () => {
     setStatus("");
     setIsModalOpen(false);
   };
 
+
   const onChange = (e) => {
-    setStatus({ ...status, active: e.target.value });
+    setStatus({ ...status, change_active: e.target.value });
   };
 
   /* phân trang */
@@ -114,11 +119,11 @@ const TableUser = () => {
   const [currentBrandData, setCurrentBrandData] = useState([]);
 
   // Hàm này sẽ được gọi mỗi khi trang thay đổi
-  useEffect(() => {
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    setCurrentBrandData(brandData.slice(indexOfFirstItem, indexOfLastItem));
-  }, [currentPage, itemsPerPage]);
+  // useEffect(() => {
+  //   const indexOfLastItem = currentPage * itemsPerPage;
+  //   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  //   setCurrentBrandData(brandData.slice(indexOfFirstItem, indexOfLastItem));
+  // }, [currentPage, itemsPerPage]);
 
   // Hàm này sẽ được gọi khi người dùng thay đổi trang
   const handlePageChange = (page) => {
@@ -136,12 +141,16 @@ const TableUser = () => {
         onCancel={handleCancel}
         okType="default"
       >
-        <Radio.Group onChange={onChange} value={status?.active} name="active">
-          <Radio value={1}>Mở hoạt động</Radio>
-          <Radio value={null}>Ngừng hoạt động</Radio>
+        <Radio.Group
+          onChange={onChange}
+          value={status?.change_active}
+          // name="active"
+        >
+          <Radio value={true}>Mở hoạt động</Radio>
+          <Radio value={false}>Ngừng hoạt động</Radio>
         </Radio.Group>
       </Modal>
-      
+
       <div className=" rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           Quản Lý Người Dùng
@@ -180,8 +189,8 @@ const TableUser = () => {
               </h5>
             </div>
           </div>
-          {currentBrandData.length > 0 &&
-            currentBrandData.map((brand, key) => (
+          {
+            brandData.map((brand, key) => (
               <div
                 className={
                   "grid grid-cols-3 sm:grid-cols-6 text-[14px] hover:bg-slate-50"
@@ -195,7 +204,7 @@ const TableUser = () => {
                 </div>
                 <div className="flex justify-center items-center p-2.5 mr-[27px]">
                   <p className="hidden text-black  dark:text-white sm:block">
-                    {brand.fullname}
+                    {brand.full_name}
                   </p>
                 </div>
                 <div className="flex items-center justify-start p-2.5 xl:p-8">
@@ -206,7 +215,7 @@ const TableUser = () => {
                   <p className="text-meta-3">{brand.create_date}</p>
                 </div>
                 <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                  {brand.active === 1 ? (
+                  {brand.is_active === true ? (
                     <>
                       {" "}
                       <p className="text-green-600 font-bold">Đang Hoạt Động</p>
