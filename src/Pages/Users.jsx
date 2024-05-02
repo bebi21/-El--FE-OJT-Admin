@@ -63,9 +63,7 @@ import publicAxios from "../database/publicAxios";
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState();
-
   const [api, contextHolder] = notification.useNotification();
-
   const openNotificationWithIcon = () => {
     api.success({
       message: "Thành Công",
@@ -75,7 +73,6 @@ const TableUser = () => {
   };
   /* call api  */
   const [brandData, setBrandData] = useState([]);
-
   const takeDataInDb = async () => {
     const response = await publicAxios.get("/users/getAllUser");
     setBrandData(response.data);
@@ -83,12 +80,10 @@ const TableUser = () => {
   useEffect(() => {
     takeDataInDb();
   }, []);
-
   const showModal = (item) => {
     setStatus(item);
     setIsModalOpen(true);
   };
-
   const handleOk = async () => {
     const data = {
       is_active: status?.change_active,
@@ -99,25 +94,18 @@ const TableUser = () => {
     openNotificationWithIcon();
     setIsModalOpen(false);
   }
-
   const handleCancel = () => {
     setStatus("");
     setIsModalOpen(false);
   };
-
-
   const onChange = (e) => {
     setStatus({ ...status, change_active: e.target.value });
   };
-
   /* phân trang */
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4; // số lượng items mỗi trang
-
   // Tạo một state mới để lưu trữ dữ liệu hiển thị trên trang hiện tại
   const [currentBrandData, setCurrentBrandData] = useState([]);
-
   // Hàm này sẽ được gọi mỗi khi trang thay đổi
   // useEffect(() => {
   //   const indexOfLastItem = currentPage * itemsPerPage;
