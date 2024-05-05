@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import publicAxios from "../database/publicAxios";
 import FormEdit from "../components/Form/FormCourseEdit";
 import { getALlCourseApi } from "../api/course";
-
 const TableCourse = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -40,7 +39,6 @@ const TableCourse = () => {
     setItemEdit(item);
     setIsModalOpen(true);
   };
-
   const handleClose1 = () => {
     setIsModalOpen1(false);
     takeDataInDb();
@@ -50,12 +48,10 @@ const TableCourse = () => {
     setIsModalOpen(false);
     takeDataInDb();
   };
-
   /* phân trang */
   // số lượng items mỗi trang
   // Tạo một state mới để lưu trữ dữ liệu hiển thị trên trang hiện tại
   const [currentBrandData, setCurrentBrandData] = useState([]);
-
   // Hàm này sẽ được gọi mỗi khi trang thay đổi
   useEffect(() => {
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -115,6 +111,7 @@ const TableCourse = () => {
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 Tên Khóa Học
               </h5>
+
             </div>
             <div className="p-1 text-center">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
@@ -142,6 +139,7 @@ const TableCourse = () => {
                 Nội Dung
               </h5>
             </div>
+
           </div>
           {currentBrandData.length > 0 &&
             currentBrandData.map((brand, key) => (
