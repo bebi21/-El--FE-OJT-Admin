@@ -1,65 +1,6 @@
 import { Modal, Pagination, Radio, notification } from "antd";
 import { useEffect, useState } from "react";
 import publicAxios from "../database/publicAxios";
-
-
-//   {
-//     id: 1,
-//     fullname: "loc",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: 1,
-//   },
-//   {
-//     id: 2,
-//     fullname: "loc",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: null,
-//   },
-//   {
-//     id: 1,
-//     fullname: "loc",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: 1,
-//   },
-//   {
-//     id: 2,
-//     fullname: "loc",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: null,
-//   },
-//   {
-//     id: 1,
-//     fullname: "loc1",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: null,
-//   },
-//   {
-//     id: 2,
-//     fullname: "loc2",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: 1,
-//   },
-//   {
-//     id: 1,
-//     fullname: "lo3c",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: 1,
-//   },
-//   {
-//     id: 2,
-//     fullname: "lo4c",
-//     phone: "0123456789",
-//     create_date: "2022-07-01",
-//     active: 1,
-//   },
-// ];
 const TableUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState();
@@ -82,9 +23,11 @@ const TableUser = () => {
   }, []);
   const showModal = (item) => {
     setStatus(item);
+
     setIsModalOpen(true);
   };
   const handleOk = async () => {
+
     const data = {
       is_active: status?.change_active,
       id: status?.id,
@@ -94,6 +37,7 @@ const TableUser = () => {
     openNotificationWithIcon();
     setIsModalOpen(false);
   }
+
   const handleCancel = () => {
     setStatus("");
     setIsModalOpen(false);
@@ -128,10 +72,10 @@ const TableUser = () => {
         onCancel={handleCancel}
         okType="default"
       >
+
         <Radio.Group
           onChange={onChange}
           value={status?.change_active}
-          // name="active"
         >
           <Radio value={true}>Mở hoạt động</Radio>
           <Radio value={false}>Ngừng hoạt động</Radio>

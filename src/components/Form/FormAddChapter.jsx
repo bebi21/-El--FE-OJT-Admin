@@ -51,7 +51,7 @@ const FormAddChapter = ({ handleCloseChapter }) => {
         <Form.Item
           label="Tên bài học"
           name="title"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Thêm  tên khoá học!" }]}
         >
           <Input />
         </Form.Item>
@@ -59,7 +59,7 @@ const FormAddChapter = ({ handleCloseChapter }) => {
         <Form.Item
           label="Ghi chú"
           name="description"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Thêm  ghi  chú!" }]}
         >
           <Input />
         </Form.Item>
