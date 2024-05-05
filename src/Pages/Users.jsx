@@ -84,7 +84,6 @@ const TableUser = () => {
     takeDataInDb()
   }, []) */
   const showModal = () => {
-    setStatus(item);
     setIsModalOpen(true);
   };
 
@@ -92,8 +91,9 @@ const TableUser = () => {
     /*   const data = await publicAxios.put(`/changeStatusUser/${status?.id}`, {
       active: status?.active,
     }); */
-    openNotificationWithIcon();
-    setIsModalOpen(false);
+    /* openNotificationWithIcon();
+    setIsModalOpen(false);   */
+    console.log(status);
   };
 
   const handleCancel = () => {
@@ -137,11 +137,11 @@ const TableUser = () => {
         okType="default"
       >
         <Radio.Group onChange={onChange} value={status?.active} name="active">
-          <Radio value={1}>Mở hoạt động</Radio>
-          <Radio value={null}>Ngừng hoạt động</Radio>
+          <Radio value={true}>Mở hoạt động</Radio>
+          <Radio value={false}>Ngừng hoạt động</Radio>
         </Radio.Group>
       </Modal>
-      
+
       <div className=" rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           Quản Lý Người Dùng

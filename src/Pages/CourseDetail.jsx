@@ -6,6 +6,7 @@ import TestColap from "../components/Form/Test";
 import FormAddChapter from "../components/Form/FormAddChapter";
 import FormAddLesson from "../components/Form/FormAddLession";
 import ReactPlayer from "react-player";
+import { handleFindCourseByIdApi } from "../api/course";
 const Lession = () => {
   const { id } = useParams();
   const [videoLink, setVideoLink] = useState("");
@@ -24,9 +25,11 @@ const Lession = () => {
   const [brandData, setBrandData] = useState([]);
   const takeDataInDb = async () => {
     const data = await handleFindCourseByIdApi(id);
-    const newData = data.data.chapters;
+    const newData = data.data?.chapters;
     setBrandData(newData);
-    setVideoLink(newData[0].lessons[0].video);
+    if (newData?.length > 0) {
+      setVideoLink(newData[0].lessons[0].video);
+    }
   };
   useEffect(() => {
     takeDataInDb();

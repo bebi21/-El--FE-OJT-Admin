@@ -6,12 +6,13 @@ import {
   handleUpdateCourseByIdApi,
   handleGetAllTeacherApi,
 } from "../../api/course/index";
+import publicAxios from "../../database/publicAxios";
 
 const { TextArea } = Input;
 const FormEdit = ({ handleClose, data1 }) => {
   const [form] = Form.useForm();
   const [url, setUrl] = useState(data1?.image);
-  const editData = { ...data1, teacher_id: data1.teacher_id.id };
+  const editData = { ...data1, teacher_id: data1.teacher?.id };
   form.setFieldsValue(editData);
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (data) => {
@@ -19,7 +20,6 @@ const FormEdit = ({ handleClose, data1 }) => {
       ...data,
     });
   };
-
   const onFinish = async (values) => {
     if (!url) {
       openNotification({
@@ -32,7 +32,6 @@ const FormEdit = ({ handleClose, data1 }) => {
       ...values,
       teacher_id: +values.teacher_id,
       image: url,
-      description: "Chưa có thông tin",
     };
 
     try {
@@ -45,7 +44,6 @@ const FormEdit = ({ handleClose, data1 }) => {
       handleClose();
       setUrl("");
     } catch (error) {
-      alert(error.message);
       return error;
     }
   };
@@ -70,7 +68,7 @@ const FormEdit = ({ handleClose, data1 }) => {
   };
   const [teacher, setTeacher] = useState([]);
   const handleTakeTeacher = async () => {
-    const listTeacher = await handleGetAllTeacherApi();
+    const listTeacher = await publicAxios.get("teacher/list");
     setTeacher(listTeacher.data);
   };
   useEffect(() => {
@@ -145,6 +143,13 @@ const FormEdit = ({ handleClose, data1 }) => {
         <Form.Item
           label="Giới Thiệu"
           name="sub_description"
+          rules={[{ required: true, message: "Please input!" }]}
+        >
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item
+          label="Mô tả  khoá học"
+          name="description"
           rules={[{ required: true, message: "Please input!" }]}
         >
           <TextArea rows={4} />

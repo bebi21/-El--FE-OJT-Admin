@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Radio, Select, notification } from "antd";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../database/firebase";
+import {
+  handleGetAllTeacherApi,
+  handleCreateCourseApi,
+} from "../../api/course";
 const { TextArea } = Input;
 const FormDisabledDemo = ({ handleClose1 }) => {
   const [api, contextHolder] = notification.useNotification();
@@ -13,7 +17,6 @@ const FormDisabledDemo = ({ handleClose1 }) => {
     });
   };
   const [teacher, setTeacher] = useState([]);
-
   const onFinish = async (values) => {
     if (!url) {
       openNotification({
@@ -135,6 +138,13 @@ const FormDisabledDemo = ({ handleClose1 }) => {
         <Form.Item
           label="Giới Thiệu"
           name="sub_description"
+          rules={[{ required: true, message: "Please input!" }]}
+        >
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item
+          label="Mô tả  khoá học"
+          name="description"
           rules={[{ required: true, message: "Please input!" }]}
         >
           <TextArea rows={4} />
