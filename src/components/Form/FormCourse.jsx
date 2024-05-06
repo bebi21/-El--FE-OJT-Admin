@@ -29,7 +29,6 @@ const FormDisabledDemo = ({ handleClose1 }) => {
       ...values,
       teacher_id: +values.teacher_id,
       image: url,
-      description: "Chưa có thông tin",
     };
     try {
       await handleCreateCourseApi(data);
