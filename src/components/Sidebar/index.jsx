@@ -6,6 +6,7 @@ import { RiFileList3Line } from "react-icons/ri";
 import { FaBlogger } from "react-icons/fa";
 
 const Sidebar = () => {
+ 
   return (
     <aside
       className={`absolute left-0 top-0 z-9999 flex h-screen
@@ -60,7 +61,6 @@ const Sidebar = () => {
               </li> */}
               <li>
                 <NavLink
-                  to="/"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
                 >
                   <FaRegUser />
@@ -76,15 +76,17 @@ const Sidebar = () => {
                   Khóa học
                 </NavLink>
               </li>
+              <br />
               {/* <li>
-                <NavLink
-                  to="/"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
+                <div
+                  onClick={handleLogout}
+                  className={`cursor-pointer group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
                 >
-                <FaBlogger />
-                 Blog
-                </NavLink>
+                  <RiFileList3Line />
+                  Đăng xuất
+                </div>
               </li> */}
+            
             </ul>
           </div>
         </nav>
