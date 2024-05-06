@@ -1,6 +1,7 @@
 import { Modal, Pagination, Radio, notification } from "antd";
 import { useEffect, useState } from "react";
 import publicAxios from "../database/publicAxios";
+
 import { Input, Space } from 'antd';
 import { handleChangeStatusApi, handlePagnigationApi, handlePagnigationFirstApi } from "../api/user/user.fun";
 const { Search } = Input;
@@ -20,6 +21,7 @@ const TableUser = () => {
   const [brandData, setBrandData] = useState([]);
   const showModal = (item) => {
     setStatus(item);
+
     setIsModalOpen(true);
   };
   const handleChangeStatus = async () => {
@@ -37,6 +39,7 @@ const TableUser = () => {
     handlePaginationRenderOne();
     // onSearch()
   }, []);
+
   const handleCancel = () => {
     setStatus("");
     setIsModalOpen(false);
@@ -89,10 +92,10 @@ const TableUser = () => {
         onCancel={handleCancel}
         okType="default"
       >
+
         <Radio.Group
           onChange={onChange}
           value={status?.change_active}
-          // name="active"
         >
           <Radio value={true}>Mở hoạt động</Radio>
           <Radio value={false}>Ngừng hoạt động</Radio>

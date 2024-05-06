@@ -5,13 +5,13 @@ import {
   API_PAGINATION_COURSE,
   API_GET_ALl_TEACHER,
   API_COURSES_BY_ID_UPDATE,
+  API_COURSES_BY_ID_CREATE,
 } from "./ApiCourse";
 export const getALlCourseApi = async () => {
   try {
     const response = await publicAxios.get(API_GET_ALL_COURSE);
     return response;
   } catch (error) {
-    return error;
     return error;
   }
 };
@@ -22,10 +22,8 @@ export const handleSearchCourseApi = async (dataValue) => {
     return response;
   } catch (error) {
     return error;
-    return error;
   }
 };
-
 
 export const handlePaginationRenderOneApi = async (firstPage, limit) => {
   try {
@@ -70,6 +68,7 @@ export const handleUpdateCourseByIdApi = async (id, data) => {
 export const handleGetAllTeacherApi = async () => {
   try {
     const response = await publicAxios.get(API_GET_ALl_TEACHER);
+    console.log(response);
     return response;
   } catch (error) {
     return error;

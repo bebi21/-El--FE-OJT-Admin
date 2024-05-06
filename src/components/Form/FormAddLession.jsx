@@ -19,6 +19,7 @@ const FormAddLesson = ({ handleCloseLesson }) => {
     const newData = {
       ...values,
       chapter_id: +values.chapter_id[0],
+      description: "",
     };
     try {
       await publicAxios.post(`/lesson/create`, newData);

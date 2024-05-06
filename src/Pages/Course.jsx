@@ -5,6 +5,7 @@ import FormDisabledDemo from "../components/Form/FormCourse";
 import { NavLink } from "react-router-dom";
 import publicAxios from "../database/publicAxios";
 import FormEdit from "../components/Form/FormCourseEdit";
+import { getALlCourseApi } from "../api/course";
 const TableCourse = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -27,6 +28,7 @@ const TableCourse = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const data = await getALlCourseApi();
+    console.log(data.data);
     setBrandData(data.data);
     setCurrentBrandData(data.data.slice(indexOfFirstItem, indexOfLastItem));
   };
@@ -41,6 +43,7 @@ const TableCourse = () => {
     setIsModalOpen1(false);
     takeDataInDb();
   };
+
   const handleClose = () => {
     setIsModalOpen(false);
     takeDataInDb();
@@ -146,11 +149,6 @@ const TableCourse = () => {
                 }
                 key={key}
               >
-                {/*  <div className="flex justify-center items-center p-1 ">
-                    <p className="hidden text-black  dark:text-white sm:block">
-                      {key + 1}
-                    </p>
-                  </div> */}
                 <div className="flex justify-center items-center p-2.5 mr-[27px]">
                   <p className="hidden text-black  dark:text-white sm:block">
                     {brand.title}
@@ -158,7 +156,7 @@ const TableCourse = () => {
                 </div>
                 <div className="flex items-center justify-center p-2.5">
                   <p className="text-black dark:text-white font-bold">
-                    {brand.teacher_id.name}
+                    {brand.teacher.name}
                   </p>
                 </div>
                 <div className="flex items-center justify-center p-2.5">
@@ -194,7 +192,7 @@ const TableCourse = () => {
             current={currentPage}
             onChange={handlePageChange}
             pageSize={itemsPerPage}
-            total={brandData.length}
+            total={brandData?.length}
           />
         </div>
       </div>
