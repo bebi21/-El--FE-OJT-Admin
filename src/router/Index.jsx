@@ -5,6 +5,7 @@ import TableCourse from "../Pages/Course";
 import Lession from "../Pages/CourseDetail";
 import CKEditorComponent from "../components/CkEditor/CKeditor";
 import Test1 from "../Pages/Test1";
+import Teacher from "../Pages/Teacher";
 
 /* const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
         path: "/blog",
         element: <Test1 />,
       },
+    
     ],
   },
 ]);
