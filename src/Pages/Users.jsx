@@ -40,6 +40,7 @@ const TableUser = () => {
     // onSearch()
   }, []);
 
+
   const handleCancel = () => {
     setStatus("");
     setIsModalOpen(false);
@@ -92,11 +93,7 @@ const TableUser = () => {
         onCancel={handleCancel}
         okType="default"
       >
-
-        <Radio.Group
-          onChange={onChange}
-          value={status?.change_active}
-        >
+        <Radio.Group onChange={onChange} value={status?.change_active}>
           <Radio value={true}>Mở hoạt động</Radio>
           <Radio value={false}>Ngừng hoạt động</Radio>
         </Radio.Group>

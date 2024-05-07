@@ -280,7 +280,7 @@ const TestColap = ({ check, handleVideo }) => {
           <Collapse.Panel
             header={
               <>
-                <div className="flex justify-between items-center">
+                <div className="cursor-pointer flex justify-between items-center">
                   <h2 className="overflow-hidden max-w-[80%]">{item.title}</h2>
                   <MdEdit
                     style={{ cursor: "pointer", width: "20px", height: "20px" }}
@@ -299,7 +299,7 @@ const TestColap = ({ check, handleVideo }) => {
                 {" "}
                 <div
                   key={index}
-                  className="flex justify-between hover:bg-slate-300 cursoir-pointer"
+                  className=" cursor-pointer flex justify-between hover:bg-slate-300 cursoir-pointer"
                   onClick={() => {
                     handleVideo(item1.video);
                   }}
