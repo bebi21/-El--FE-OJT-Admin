@@ -121,15 +121,12 @@ const Lession = () => {
             </div>
           </div>
         </div>
-
         <Divider style={{ border: "0.1px solid #d9d9d9" }} />
         <div className="grid grid-cols-6 gap-4 h-[70vh] overflow-auto relative ">
           <div className="col-span-4">
-            {" "}
             <ReactPlayer url={videoLink} width="100%" />
           </div>
           <div className="col-span-2 overflow-scroll">
-            {/*  <DrawerCourse /> */}
             <TestColap check={check} handleVideo={handleVideo} />
           </div>
         </div>
@@ -137,5 +134,4 @@ const Lession = () => {
     </>
   );
 };
-
 export default Lession;

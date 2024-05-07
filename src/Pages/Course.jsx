@@ -28,8 +28,9 @@ const TableCourse = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const data = await getALlCourseApi();
-    console.log(data.data);
+
     setBrandData(data.data);
+    console.log(data.data);
     setCurrentBrandData(data.data.slice(indexOfFirstItem, indexOfLastItem));
   };
   useEffect(() => {
@@ -111,7 +112,6 @@ const TableCourse = () => {
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 Tên Khóa Học
               </h5>
-
             </div>
             <div className="p-1 text-center">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
@@ -125,7 +125,7 @@ const TableCourse = () => {
             </div>
             <div className="hidden p-1 text-center sm:block">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Ngày Khởi Tạo
+                Trạng Thái
               </h5>
             </div>
             <div className="hidden p-1 text-center sm:block">
@@ -139,7 +139,6 @@ const TableCourse = () => {
                 Nội Dung
               </h5>
             </div>
-
           </div>
           {currentBrandData.length > 0 &&
             currentBrandData.map((brand, key) => (
@@ -165,7 +164,9 @@ const TableCourse = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
-                  <p className="text-meta-3">{brand.create_date}</p>
+                  <p className="text-meta-3">
+                    {brand.status ? "Hoạt Động" : "Không hoạt động"}
+                  </p>
                 </div>
 
                 <div className="  flex items-center justify-start ml-[40px]">

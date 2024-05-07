@@ -7,6 +7,7 @@ import {
   handleGetAllTeacherApi,
 } from "../../api/course/index";
 import publicAxios from "../../database/publicAxios";
+import tokenAxios from "../../../../OJT_E-learning/src/configs/private";
 
 const { TextArea } = Input;
 const FormEdit = ({ handleClose, data1 }) => {
@@ -16,14 +17,14 @@ const FormEdit = ({ handleClose, data1 }) => {
   form.setFieldsValue(editData);
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (data) => {
-    api.open({
-      ...data,
+    api.info({
+      message: data,
+      placement: "topRight",
     });
   };
   const onFinish = async (values) => {
     if (!url) {
       openNotification({
-        type: "error",
         message: "Hãy Thêm Ảnh Vào",
       });
       return;
@@ -36,10 +37,7 @@ const FormEdit = ({ handleClose, data1 }) => {
 
     try {
       await handleUpdateCourseByIdApi(data.id, data);
-      openNotification({
-        type: "success",
-        message: "Sửa Khóa Học  Thành Công",
-      });
+      openNotification("Sửa Khóa Học  Thành Công");
       form.resetFields();
       handleClose();
       setUrl("");
@@ -79,6 +77,17 @@ const FormEdit = ({ handleClose, data1 }) => {
     form.resetFields();
     setUrl("");
     handleClose();
+  };
+  const handleRemove = async () => {
+    try {
+      const data = await tokenAxios.delete(`courses/delete/${data1.id}`);
+      openNotification("Khoá Thành Công");
+      form.resetFields();
+      setUrl("");
+      handleClose();
+    } catch (error) {
+      return error;
+    }
   };
   return (
     <>
@@ -160,6 +169,9 @@ const FormEdit = ({ handleClose, data1 }) => {
           </Button>
           <Button type="default" onClick={handleCancle}>
             Cancel
+          </Button>
+          <Button type="default" onClick={handleRemove}>
+            Change Status
           </Button>
         </Form.Item>
       </Form>

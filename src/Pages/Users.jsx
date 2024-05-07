@@ -27,7 +27,6 @@ const TableUser = () => {
     setIsModalOpen(true);
   };
   const handleOk = async () => {
-
     const data = {
       is_active: status?.change_active,
       id: status?.id,
@@ -36,7 +35,7 @@ const TableUser = () => {
     takeDataInDb();
     openNotificationWithIcon();
     setIsModalOpen(false);
-  }
+  };
 
   const handleCancel = () => {
     setStatus("");
@@ -72,11 +71,7 @@ const TableUser = () => {
         onCancel={handleCancel}
         okType="default"
       >
-
-        <Radio.Group
-          onChange={onChange}
-          value={status?.change_active}
-        >
+        <Radio.Group onChange={onChange} value={status?.change_active}>
           <Radio value={true}>Mở hoạt động</Radio>
           <Radio value={false}>Ngừng hoạt động</Radio>
         </Radio.Group>
@@ -120,56 +115,53 @@ const TableUser = () => {
               </h5>
             </div>
           </div>
-          {
-            brandData.map((brand, key) => (
-              <div
-                className={
-                  "grid grid-cols-3 sm:grid-cols-6 text-[14px] hover:bg-slate-50"
-                }
-                key={key}
-              >
-                <div className="flex justify-center items-center p-2.5 ">
-                  <p className="hidden text-black  dark:text-white sm:block">
-                    {key + 1}
-                  </p>
-                </div>
-                <div className="flex justify-center items-center p-2.5 mr-[27px]">
-                  <p className="hidden text-black  dark:text-white sm:block">
-                    {brand.full_name}
-                  </p>
-                </div>
-                <div className="flex items-center justify-start p-2.5 xl:p-8">
-                  <p className="text-black dark:text-white">{brand.phone}</p>
-                </div>
-
-                <div className="flex items-center justify-center p-2.5 xl:p-5">
-                  <p className="text-meta-3">{brand.create_date}</p>
-                </div>
-                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                  {brand.is_active === true ? (
-                    <>
-                      {" "}
-                      <p className="text-green-600 font-bold">Đang Hoạt Động</p>
-                    </>
-                  ) : (
-                    <>
-                      {" "}
-                      <p className="text-red-600 font-bold  ">
-                        Ngừng Hoạt Động
-                      </p>
-                    </>
-                  )}
-                </div>
-                <div className="  flex items-center justify-start ml-[40px]">
-                  <p
-                    onClick={() => showModal(brand)}
-                    className="text-black cursor-pointer px-[20px] py-[7px] rounded-md hover:bg-slate-500 hover:text-white bg-slate-200"
-                  >
-                    Chỉnh Sửa
-                  </p>
-                </div>
+          {brandData.map((brand, key) => (
+            <div
+              className={
+                "grid grid-cols-3 sm:grid-cols-6 text-[14px] hover:bg-slate-50"
+              }
+              key={key}
+            >
+              <div className="flex justify-center items-center p-2.5 ">
+                <p className="hidden text-black  dark:text-white sm:block">
+                  {key + 1}
+                </p>
               </div>
-            ))}
+              <div className="flex justify-center items-center p-2.5 mr-[27px]">
+                <p className="hidden text-black  dark:text-white sm:block">
+                  {brand.full_name}
+                </p>
+              </div>
+              <div className="flex items-center justify-start p-2.5 xl:p-8">
+                <p className="text-black dark:text-white">{brand.phone}</p>
+              </div>
+
+              <div className="flex items-center justify-center p-2.5 xl:p-5">
+                <p className="text-meta-3">{brand.create_date}</p>
+              </div>
+              <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                {brand.is_active === true ? (
+                  <>
+                    {" "}
+                    <p className="text-green-600 font-bold">Đang Hoạt Động</p>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <p className="text-red-600 font-bold  ">Ngừng Hoạt Động</p>
+                  </>
+                )}
+              </div>
+              <div className="  flex items-center justify-start ml-[40px]">
+                <p
+                  onClick={() => showModal(brand)}
+                  className="text-black cursor-pointer px-[20px] py-[7px] rounded-md hover:bg-slate-500 hover:text-white bg-slate-200"
+                >
+                  Chỉnh Sửa
+                </p>
+              </div>
+            </div>
+          ))}
           <div className="absolute flex justify-center left-[25%] bottom-[40px]">
             <Pagination
               showQuickJumper
